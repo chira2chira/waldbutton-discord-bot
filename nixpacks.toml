@@ -1,0 +1,11 @@
+providers = ['...',"node"]
+
+[phases.setup]
+nixPkgs = ['nodejs', 'yarn']
+aptPkgs = ['...','ffmpeg']
+
+[phases.build]
+cmd = "yarn install"
+
+[start]
+cmd = "yarn start"
