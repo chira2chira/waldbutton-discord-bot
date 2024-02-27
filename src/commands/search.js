@@ -2,11 +2,10 @@
 
 const Discord = require("discord.js");
 const { play } = require("../utils/voice");
-
-const CUSTOM_ID = "select-voice";
+const { searchBy, CustomId } = require("../utils/searchBy");
 
 module.exports = {
-  id: CUSTOM_ID,
+  id: CustomId,
   data: new Discord.SlashCommandBuilder()
     .setName("search")
     .setDescription("キーワードからボタンを探します（最大25件）")
@@ -19,33 +18,8 @@ module.exports = {
   /** @param {Discord.CommandInteraction} interaction */
   async execute(interaction) {
     try {
-      await interaction.deferReply();
-
       const keyword = interaction.options.get("keyword")?.value || "";
-      const res = await fetch(
-        `https://waldbutton.vercel.app/api/search-by-keyword?keyword=${keyword}`
-      );
-      let { items } = await res.json();
-
-      if (items.length === 0) {
-        return await interaction.followUp({
-          content: "指定されたキーワードでは音声が見つかりませんでした",
-        });
-      }
-
-      // 25件が最大
-      items = items.slice(-25);
-
-      const select = new Discord.StringSelectMenuBuilder()
-        .setCustomId(CUSTOM_ID)
-        .setPlaceholder(`再生する音声を選んでね（${items.length}件）`)
-        .addOptions(items.map((x) => ({ label: x.text, value: x.url })));
-      const row = new Discord.ActionRowBuilder().addComponents(select);
-      await interaction.followUp({
-        content: `キーワード：${keyword}`,
-        // @ts-ignore
-        components: [row],
-      });
+      await searchBy(interaction, keyword.toString());
     } catch (error) {
       console.error(error);
       await interaction.followUp({
@@ -77,7 +51,7 @@ module.exports = {
   },
   /** @param {Discord.StringSelectMenuInteraction} interaction */
   async replay(interaction) {
-    const [_, url] = interaction.customId.split('@');
+    const [_, url] = interaction.customId.split("@");
     try {
       const reply = await play(interaction, url);
       reply.delete();
@@ -87,5 +61,5 @@ module.exports = {
         ephemeral: true,
       });
     }
-  }
+  },
 };
