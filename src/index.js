@@ -1,13 +1,13 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { TOKEN } = require("./config");
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
 });
 
-client.on("ready", () => {
+client.on(Events.ClientReady, () => {
   console.log(`${client.user.tag}でログインしました。`);
 });
 
@@ -31,7 +31,7 @@ for (const file of commandFiles) {
 }
 
 // SlashCommand
-client.on("interactionCreate", async (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   const command = interaction.client.commands.get(interaction.commandName);
@@ -53,7 +53,7 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 // SelectMenu
-client.on("interactionCreate", async (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isAnySelectMenu()) return;
 
   try {
@@ -71,7 +71,7 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 // Button
-client.on("interactionCreate", async (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isButton()) return;
 
   try {
@@ -87,6 +87,11 @@ client.on("interactionCreate", async (interaction) => {
     });
   }
 });
+
+client.on(Events.Error, async (error) => {
+  console.error("Unhandled error:", error);
+});
+
 const http = require("http");
 const server = http.createServer((request, response) => {
   response.writeHead(200);
