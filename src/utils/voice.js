@@ -69,9 +69,9 @@ exports.play = async (interaction, url) => {
   connection.destroy();
 
   console.log(
-    `Play -> ${url}, Guild -> ${guild.id.slice(
-      -5
-    )}, Member -> ${interaction.member.id.slice(-5)}`
+    `Play:${url.replace(/^.*\//, "")}`,
+    `Guild:${guild.id.slice(-5)}`,
+    `Member:${interaction.member.id.slice(-5)}`
   );
   return reply;
 };
