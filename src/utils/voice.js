@@ -68,5 +68,10 @@ exports.play = async (interaction, url) => {
   await entersState(player, AudioPlayerStatus.Idle, 2 ** 31 - 1);
   connection.destroy();
 
+  console.log(
+    `Play -> ${url}, Guild -> ${guild.id.slice(
+      -5
+    )}, Member -> ${interaction.member.id.slice(-5)}`
+  );
   return reply;
 };
