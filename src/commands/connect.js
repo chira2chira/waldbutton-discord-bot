@@ -38,7 +38,7 @@ module.exports = {
     scheduleRemoveKey(key);
 
     await interaction.reply({
-      content: `下記リンクからbotと接続できます\n${WALDBUTTON_URL}/discord/connect?key=${key}`,
+      content: `下記リンクからワルトボタンと接続できます\n${WALDBUTTON_URL}/discord/connect?key=${key}`,
       ephemeral: true,
     });
   },
