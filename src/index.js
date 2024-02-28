@@ -1,7 +1,9 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
-const { TOKEN } = require("./config");
+const { getVoiceConnection } = require("@discordjs/voice");
+const { TOKEN, APP_ID } = require("./config");
+const createExpressApp = require("./express");
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
@@ -29,6 +31,17 @@ for (const file of commandFiles) {
     console.log(`${filePath} に必要な "data" か "execute" がありません。`);
   }
 }
+
+// VCから人がいなくなったら退出する
+client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
+  if (oldState.channelId != null && newState.channelId === null) {
+    const vcMembers = client.channels.cache.get(oldState.channelId).members;
+    const own = vcMembers.find((x) => x.user.id === APP_ID);
+    if (vcMembers.filter((x) => !x.user.bot).size === 0 && own) {
+      getVoiceConnection(own.guild.id)?.disconnect();
+    }
+  }
+});
 
 // SlashCommand
 client.on(Events.InteractionCreate, async (interaction) => {
@@ -92,9 +105,7 @@ client.on(Events.Error, async (error) => {
   console.error("Unhandled error:", error);
 });
 
-const http = require("http");
-const server = http.createServer((request, response) => {
-  response.writeHead(200);
-  response.end();
+const app = createExpressApp(client);
+app.listen("8080", "0.0.0.0", () => {
+  console.log("Expres is running");
 });
-server.listen(3000);
