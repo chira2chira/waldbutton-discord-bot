@@ -56,6 +56,6 @@ function scheduleRemoveKey(key) {
   function delteKey(key) {
     if (onetimeKeys[key]) delete onetimeKeys[key];
   }
-  // 120 秒したらキャッシュを削除
-  setTimeout(() => delteKey(key), 120 * 1000);
+  // 300 秒したらキャッシュを削除
+  setTimeout(() => delteKey(key), 300 * 1000);
 }

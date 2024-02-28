@@ -58,7 +58,6 @@ function createExpressApp(client) {
         .send({ message: "有効な接続キーではありません。" });
     }
 
-    delete onetimeKeys[key];
     res.send({ id: channelId, message: "接続成功" });
   });
 
