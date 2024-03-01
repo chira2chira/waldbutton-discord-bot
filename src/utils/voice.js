@@ -66,7 +66,6 @@ exports.play = async (interaction, url) => {
   await entersState(player, AudioPlayerStatus.Playing, 100);
 
   await entersState(player, AudioPlayerStatus.Idle, 2 ** 31 - 1);
-  connection.destroy();
 
   console.log(
     `Play:${url.replace(/^.*\//, "")}`,
