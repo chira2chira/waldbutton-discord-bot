@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { getVoiceConnection } = require("@discordjs/voice");
-const { TOKEN, APP_ID } = require("./config");
+const { TOKEN, APP_ID, PORT } = require("./config");
 const createExpressApp = require("./express");
 
 const client = new Client({
@@ -106,6 +106,6 @@ client.on(Events.Error, async (error) => {
 });
 
 const app = createExpressApp(client);
-app.listen("8080", "0.0.0.0", () => {
-  console.log("Expres is running");
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`App is listening on port ${PORT}`);
 });

@@ -9,3 +9,5 @@ exports.SERVER_ID = process.env.DEV_SERVER_ID;
 exports.WALDBUTTON_URL = process.env.WB_URL;
 
 exports.API_KEY = process.env.API_KEY;
+
+exports.PORT = process.env.PORT || 8080;
