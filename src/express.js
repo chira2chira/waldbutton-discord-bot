@@ -112,7 +112,7 @@ function createExpressApp(client) {
     console.log(
       `Play:${url.replace(/^.*\//, "")}`,
       `Guild:${memberVC.guild.id.slice(-5)}`,
-      `Client: ${clientIp}`
+      `Client:${clientIp}`
     );
 
     res.send({ message: "OK" });
