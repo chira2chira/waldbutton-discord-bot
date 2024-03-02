@@ -4,7 +4,9 @@ FROM node:lts-alpine
 COPY --from=ffmpeg / /
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache make gcc g++ python3
+    apk add --no-cache make gcc g++ python3 tzdata && \
+    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    apk del tzdata
 
 WORKDIR /app
 COPY . .
