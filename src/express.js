@@ -64,7 +64,7 @@ function createExpressApp(client) {
   app.post("/play", async (req, res) => {
     /** @type {Client} */
     const client = req.discordClient;
-    const { url, channel } = req.body;
+    const { url, channel, clientIp } = req.body;
 
     if (!url || !channel) {
       return res.status(400).send({ message: "不正な呼び出しです。" });
@@ -111,7 +111,8 @@ function createExpressApp(client) {
 
     console.log(
       `Play:${url.replace(/^.*\//, "")}`,
-      `Guild:${memberVC.guild.id.slice(-5)}`
+      `Guild:${memberVC.guild.id.slice(-5)}`,
+      `Client: ${clientIp}`
     );
 
     res.send({ message: "OK" });
