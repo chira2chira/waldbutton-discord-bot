@@ -71,7 +71,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   try {
     const searchCommand = require("./commands/search");
-    if (interaction.customId === searchCommand.id) {
+    const randomCommand = require("./commands/random");
+    if (
+      interaction.customId === searchCommand.id ||
+      interaction.customId === randomCommand.id
+    ) {
       await searchCommand.select(interaction);
     }
   } catch (error) {
