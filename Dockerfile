@@ -1,12 +1,8 @@
-FROM jrottenberg/ffmpeg:4.4-alpine AS ffmpeg
 FROM node:lts-alpine
 
-COPY --from=ffmpeg /usr/local/bin/ffmpeg /usr/local/bin/ffmpeg
-COPY --from=ffmpeg /usr/local/bin/ffprobe /usr/local/bin/ffprobe
-COPY --from=ffmpeg /usr/local/lib/ /usr/local/lib/
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache make gcc g++ python3 tzdata && \
+    apk add --no-cache make gcc g++ python3 tzdata ffmpeg && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     apk del tzdata
 
