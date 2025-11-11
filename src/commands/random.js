@@ -20,7 +20,7 @@ module.exports = {
       console.error(error);
       await interaction.followUp({
         content: "取得中にエラーが発生しました",
-        ephemeral: true,
+        flags: "Ephemeral",
       });
     }
   },

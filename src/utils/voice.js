@@ -16,23 +16,23 @@ exports.play = async (interaction, url) => {
   if (!memberVC) {
     return interaction.reply({
       content: "接続先のVCが見つかりません。",
-      ephemeral: true,
+      flags: "Ephemeral",
     });
   }
   if (!memberVC.joinable) {
     return interaction.reply({
       content: "VCに接続できません。",
-      ephemeral: true,
+      flags: "Ephemeral",
     });
   }
   if (!memberVC.speakable) {
     return interaction.reply({
       content: "VCで音声を再生する権限がありません。",
-      ephemeral: true,
+      flags: "Ephemeral",
     });
   }
   const status = ["Loading Sounds...", `Connecting to ${memberVC}...`];
-  const p = interaction.reply({ content: status.join("\n"), ephemeral: true });
+  const p = interaction.reply({ content: status.join("\n"), flags: "Ephemeral" });
   const connection = joinVoiceChannel({
     guildId: guild.id,
     channelId: memberVC.id,

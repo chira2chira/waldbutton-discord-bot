@@ -60,7 +60,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     console.error(error);
     await interaction.followUp({
       content: "エラーが発生しました。",
-      ephemeral: true,
+      flags: "Ephemeral",
     });
   }
 });
@@ -82,7 +82,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     console.error(error);
     await interaction.followUp({
       content: "エラーが発生しました。",
-      ephemeral: true,
+      flags: "Ephemeral",
     });
   }
 });
@@ -100,7 +100,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     console.error(error);
     await interaction.followUp({
       content: "エラーが発生しました。",
-      ephemeral: true,
+      flags: "Ephemeral",
     });
   }
 });

@@ -17,19 +17,19 @@ module.exports = {
     if (!memberVC) {
       return interaction.reply({
         content: "接続先のVCが見つかりません。",
-        ephemeral: true,
+        flags: "Ephemeral",
       });
     }
     if (!memberVC.joinable) {
       return interaction.reply({
         content: "VCに接続できません。",
-        ephemeral: true,
+        flags: "Ephemeral",
       });
     }
     if (!memberVC.speakable) {
       return interaction.reply({
         content: "VCで音声を再生する権限がありません。",
-        ephemeral: true,
+        flags: "Ephemeral",
       });
     }
 
@@ -39,7 +39,7 @@ module.exports = {
 
     await interaction.reply({
       content: `下記リンクからワルトボタンと接続できます\n${WALDBUTTON_URL}/discord/connect?key=${key}`,
-      ephemeral: true,
+      flags: "Ephemeral",
     });
   },
 };

@@ -24,7 +24,7 @@ module.exports = {
       console.error(error);
       await interaction.followUp({
         content: "検索中にエラーが発生しました",
-        ephemeral: true,
+        flags: "Ephemeral",
       });
     }
   },
@@ -37,7 +37,7 @@ module.exports = {
     } catch (error) {
       await interaction.followUp({
         content: "再生中にエラーが発生しました",
-        ephemeral: true,
+        flags: "Ephemeral",
       });
     }
 
@@ -58,7 +58,7 @@ module.exports = {
     } catch (error) {
       await interaction.followUp({
         content: "再生中にエラーが発生しました",
-        ephemeral: true,
+        flags: "Ephemeral",
       });
     }
   },
